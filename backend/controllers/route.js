@@ -2,9 +2,11 @@ const User = require("../model/user")
 const bcryptjs = require("bcryptjs")
 const { generateTokenAndSetCookie } = require("../utilis/generateToken")
 const signUp = async (req, res) => {
+    console.log("kefn")
+    console.log(req.body)
     try {
         const { name, username, password, gender, email, confirmPassword } = req.body
-
+        
         if (password !== confirmPassword) {
             return res.status(400).json({ error: "Passwords don't match" })
         }
@@ -19,9 +21,10 @@ const signUp = async (req, res) => {
             const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${name}`
             const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${name}`
             const newUser = await User.create({ name, username, password: hashedPassword, gender, email, profilePic: gender === "male" ? boyProfilePic : girlProfilePic })
+            console.log(newUser)
             const token=generateTokenAndSetCookie(newUser)
             res.cookie("token",token)
-            return res.status(201).json({message:"User Created successfully"})
+            return res.status(201).json(newUser)
         //hash password
 
 
@@ -32,6 +35,7 @@ const signUp = async (req, res) => {
 }
 
 const login = async (req, res) => {
+    console.log(req.body)
     try {
         const {username,password}=req.body
         const user=await User.findOne({username})
@@ -45,7 +49,7 @@ const login = async (req, res) => {
         
             const token=generateTokenAndSetCookie(user)
             res.cookie("token",token)
-            return res.status(201).json({message:"User logged in successfully"})
+            return res.status(201).json({user})
         
     } catch (error) {
         console.log(error)

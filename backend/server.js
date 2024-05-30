@@ -3,6 +3,7 @@ const dotenv=require("dotenv")
 dotenv.config()
 const cookieParser=require('cookie-parser')
 const app=express()
+const bodyParser=require('body-parser')
 const PORT=process.env.PORT
 const {connectToMongoDb}=require("./db/connectionToMongoDb")
 const authRoutes=require('./routes/routes')
@@ -12,7 +13,7 @@ const userRoutes=require('./routes/userRouter')
 //middlewares
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-
+app.use(bodyParser())
 connectToMongoDb()
 
 
