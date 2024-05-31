@@ -30,7 +30,8 @@ const sentMessage=async(req,res)=>{
                 conversation.messages.push(newMessage._id)
             }
             await conversation.save()
-            res.status(201).json({newMessage})
+            await newMessage.save()
+            res.status(201).json(newMessage)
         
 
     } catch (error) {
@@ -47,11 +48,11 @@ const getMessages=async(req,res)=>{
             participants:{$all:[senderId,userToChatId]}
         }).populate("messages")
         if(!conversation){
-            return res.status(404).json({error:"No conversation found"})
+            return res.status(200).json([])
         }
         const messages=conversation.messages
-        if(!messages) return ;
         res.status(200).json(messages)
+        
 
     } catch (error) {
         console.log(error)

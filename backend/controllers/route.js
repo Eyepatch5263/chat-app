@@ -21,7 +21,7 @@ const signUp = async (req, res) => {
             const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${name}`
             const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${name}`
             const newUser = await User.create({ name, username, password: hashedPassword, gender, email, profilePic: gender === "male" ? boyProfilePic : girlProfilePic })
-            console.log(newUser)
+            
             const token=generateTokenAndSetCookie(newUser)
             res.cookie("token",token)
             return res.status(201).json(newUser)
