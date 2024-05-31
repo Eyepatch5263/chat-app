@@ -6,8 +6,6 @@ const useLogin=()=>{
     const [loading,setLoading]=useState(false)
     const {authUser,setAuthUser}=useAuthContext()
     const login=async(username,password)=>{
-        const success=handleInputErrors({username,password})
-        if(!success) return ;
         setLoading(true)
         try {
             const res=await fetch('/api/auth/login',{
@@ -34,8 +32,5 @@ const useLogin=()=>{
     }
     return {loading,login}
 }
-const handleInputErrors=({username,password})=>{
-    
-    return true;
-}
+
 export default useLogin

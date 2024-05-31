@@ -5,7 +5,6 @@ const getUsersForSidebar=async(req,res)=>{
         const loggedInUser=req.user._id
         const filteredUsers= await User.find({_id:{$ne:loggedInUser} }).select("-password") //this simply returns all the user expect the currentUser
         
-        console.log(filteredUsers)
         res.json(filteredUsers)
     } catch (error) {
         console.log("Error in getUserSideBar:",error)

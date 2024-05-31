@@ -2,8 +2,7 @@ const User = require("../model/user")
 const bcryptjs = require("bcryptjs")
 const { generateTokenAndSetCookie } = require("../utilis/generateToken")
 const signUp = async (req, res) => {
-    console.log("kefn")
-    console.log(req.body)
+    
     try {
         const { name, username, password, gender, email, confirmPassword } = req.body
         
@@ -29,13 +28,11 @@ const signUp = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error)
         res.status(500).json({ error })
     }
 }
 
 const login = async (req, res) => {
-    console.log(req.body)
     try {
         const {username,password}=req.body
         const user=await User.findOne({username})
@@ -52,7 +49,6 @@ const login = async (req, res) => {
             return res.status(201).json({user})
         
     } catch (error) {
-        console.log(error)
         res.end({error})
     }
 }
@@ -61,7 +57,6 @@ const logOut = async (req, res) => {
         res.clearCookie("jwt")
         res.status(200).json({ message: "User logged out successfully" })
     } catch (error) {
-        console.log(error)
         res.status(500).json({ error })
     }
 }
