@@ -1,22 +1,26 @@
 import React from 'react'
+import useConversation from '../../zustand/useConversation'
 
-const Conversation = () => {
+const Conversation = ({ conversation, emoji, lastIdx }) => {
+    const {selectedConversation,setSelectedConversation}=useConversation()
+    const isSelected=selectedConversation?._id===conversation._id
     return (
         <>
-        <div className='flex gap-2 items-center hover:bg-pink-500 rounded py1 p-2 cursor-pointer'>
-            <div className='avatar online'>
-                <div className='w-12 rounded-full'>
-                    <img src="https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png" alt='user-avatar'/>
+            <div className={`flex gap-2 items-center hover:bg-pink-500 rounded py1 p-2 cursor-pointer ${isSelected?"bg-pink-400":""}`}
+            onClick={() => setSelectedConversation(conversation)}>
+                <div className='avatar online'>
+                    <div className='w-12 rounded-full'>
+                        <img src={conversation.profilePic} alt='user-avatar' />
+                    </div>
+                </div>
+                <div className='flex flex-col flex-1'>
+                    <div className='flex gap-3 justify-between'>
+                        <p className='font-bold text-gray-200'>{conversation.name}</p>
+                        <span className='text-xl'>{emoji}</span>
+                    </div>
                 </div>
             </div>
-            <div className='flex flex-col flex-1'>
-                <div className='flex gap-3 justify-between'>
-                    <p className='font-bold text-gray-200'>Eyepatch</p>
-                    <span className='text-xl'>😣</span>
-                </div>
-            </div>
-        </div>
-        <div className='divider my-0 py-0 h-1'/>
+            {lastIdx ? "" : <div className='divider my-0 py-0 h-1' />}
         </>
     )
 }

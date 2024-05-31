@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Messages from './Messages'
 import MessageInput from './MessageInput'
 import { LuMessagesSquare } from "react-icons/lu";
+import useConversation from '../../zustand/useConversation';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const MessageContainer = () => {
-    const noChatSelected=true
+    const {selectedConversation,setSelectedConversation}= useConversation()
+    useEffect(()=>{
+        //clean the selected chat after log out
+        return ()=>setSelectedConversation(null)
+    },[setSelectedConversation])
     return (
         <div style={{width:"700px"}} className='md:min-w[450px] flex flex-col'>
-            {noChatSelected?<NoChatSelected/>:<>
+            { !selectedConversation?<NoChatSelected/>:<>
             <div className='bg-pink-600 px-4 py-4 mb-2'>
-                <span className='text-white text-lg'>Eyepatch</span>
+                <span className='text-white text-lg'>{selectedConversation.name}</span>
             </div>
             <Messages/>
             <MessageInput/>
