@@ -22,7 +22,8 @@ const signUp = async (req, res) => {
             const newUser = await User.create({ name, username, password: hashedPassword, gender, email, profilePic: gender === "male" ? boyProfilePic : girlProfilePic })
             if (newUser) {
                 // Generate JWT token here
-                generateTokenAndSetCookie(newUser._id, res);
+                const cookie=generateTokenAndSetCookie(newUser._id, res);
+                res.cookie(cookie)
                 await newUser.save();
     
                 res.status(201).json({
