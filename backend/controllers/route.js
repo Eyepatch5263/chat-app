@@ -22,9 +22,7 @@ const signUp = async (req, res) => {
             const newUser = await User.create({ name, username, password: hashedPassword, gender, email, profilePic: gender === "male" ? boyProfilePic : girlProfilePic })
             if (newUser) {
                 // Generate JWT token here
-                const cookie=generateTokenAndSetCookie(newUser._id, res);
-                res.cookie(cookie)
-                await newUser.save();
+                generateTokenAndSetCookie(newUser._id, res);
     
                 res.status(201).json({
                     _id: newUser._id,
@@ -39,6 +37,7 @@ const signUp = async (req, res) => {
             }
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error })
     }
 }
