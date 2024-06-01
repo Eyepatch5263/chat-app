@@ -15,7 +15,7 @@ const { app,server } = require('./socket/socket')
 //middlewares
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(bodyParser())
+app.use(express.json())
 connectToMongoDb()
 
 

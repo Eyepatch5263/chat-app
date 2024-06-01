@@ -49,13 +49,12 @@ const login = async (req, res) => {
         if(!user){
             return res.status(400).json({error:"User not found"})
         }
+        generateTokenAndSetCookie(user._id,res)
         const isMatched=bcryptjs.compare(password,user.password)
         if(!isMatched){
             return res.status(400).json({error:"Invalid Password or username"})
         }
         
-            const token=generateTokenAndSetCookie(user)
-            res.cookie("token",token)
             res.status(200).json({
                 _id: user._id,
                 fullName: user.fullName,
@@ -64,12 +63,13 @@ const login = async (req, res) => {
             });
         
     } catch (error) {
-        res.end({error})
+        console.log(error)
+        res.status(500).json({ error })
     }
 }
 const logOut = async (req, res) => {
     try {
-        res.clearCookie("jwt")
+        res.clearCookie("token")
         res.status(200).json({ message: "User logged out successfully" })
     } catch (error) {
         res.status(500).json({ error })
