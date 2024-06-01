@@ -20,12 +20,22 @@ const signUp = async (req, res) => {
             const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${name}`
             const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${name}`
             const newUser = await User.create({ name, username, password: hashedPassword, gender, email, profilePic: gender === "male" ? boyProfilePic : girlProfilePic })
-            
-            const token=generateTokenAndSetCookie(newUser)
-            res.cookie("token",token)
-            return res.status(201).json(newUser)
+            if (newUser) {
+                // Generate JWT token here
+                generateTokenAndSetCookie(newUser._id, res);
+                await newUser.save();
+    
+                res.status(201).json({
+                    _id: newUser._id,
+                    fullName: newUser.fullName,
+                    username: newUser.username,
+                    profilePic: newUser.profilePic,
+                });
         //hash password
-
+            }
+            else{
+                res.status(400).json({error: "Something went wrong" })
+            }
 
     } catch (error) {
         res.status(500).json({ error })
@@ -46,7 +56,12 @@ const login = async (req, res) => {
         
             const token=generateTokenAndSetCookie(user)
             res.cookie("token",token)
-            return res.status(201).json({user})
+            res.status(200).json({
+                _id: user._id,
+                fullName: user.fullName,
+                username: user.username,
+                profilePic: user.profilePic,
+            });
         
     } catch (error) {
         res.end({error})

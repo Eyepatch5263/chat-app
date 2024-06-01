@@ -14,10 +14,7 @@ const Logout=()=>{
                     'Content-Type':'application/json'
                 }
             })
-            const data=await res.json()
-            if(data.error){
-                throw new Error(data.error)
-            }
+            
         
             localStorage.removeItem('chat-user')
             setAuthUser(null)

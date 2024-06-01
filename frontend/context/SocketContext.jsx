@@ -12,11 +12,13 @@ export const SocketContextProvider=({children})=>{
     const {authUser,setAuthUser}=useAuthContext()
     useEffect(()=>{
         if(authUser){
+        
             const socket=io("http://localhost:8000",{
                 query:{
-                    userId:authUser.user._id
+                    userId:authUser._id
                 }
             })
+            console.log(authUser)
             setSocket(socket)
 
             socket.on("getOnlineUsers",(users)=>{

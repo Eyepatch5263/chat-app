@@ -29,7 +29,7 @@ const NoChatSelected=()=>{
     return(
         <div style={{width:"700px"}} className='flex items-center justify-center w-full h-full'>
             <div className='px-4 text-center sm:text md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2'>
-                <p>Welcome 👋 {authUser.user.name}</p>
+                <p>Welcome 👋 {authUser.name}</p>
                 <p>Select a chat to start messaging</p>
                 <LuMessagesSquare className='text-3xl md:text-6xl text-center'/>
 

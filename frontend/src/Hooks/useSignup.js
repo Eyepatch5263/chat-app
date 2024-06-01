@@ -37,7 +37,6 @@ const useSignup = () => {
 
         //context
         // setAuthUser(data)
-        console.log(JSON.stringify(data["name"]))
 
     } catch (error) {
         toast.error(error.message)
