@@ -45,16 +45,17 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try {
         const {username,password}=req.body
-        const user=await User.findOne({username})
-        if(!user){
-            
-            return res.status(400).json({error:"User not found"})
+        if(!username || !password){
+            return res.status(400).json({error:"Please enter username and password"})
         }
-        generateTokenAndSetCookie(user._id,res)
-        const isMatched=bcryptjs.compare(password,user.password)
-        if(!isMatched){
+        const user=await User.findOne({username})
+        const isMatched=await bcryptjs.compare(password,user.password)
+
+        if (!isMatched || !user ){
             return res.status(400).json({error:"Invalid Password or username"})
         }
+        
+        generateTokenAndSetCookie(user._id,res)
         
             res.status(200).json({
                 _id: user._id,
@@ -65,7 +66,7 @@ const login = async (req, res) => {
         
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error })
+        res.status(500).json({ error:"Invalid Password or username" })
     }
 }
 const logOut = async (req, res) => {

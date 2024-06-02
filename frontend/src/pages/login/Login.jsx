@@ -36,7 +36,7 @@ const Login = () => {
                     </div>
                     <div style={{ paddingBottom: "10px" }}></div>
                     <Link to='/signup' className='text-md hover:underline hover:text-pink-400 inline-block'>
-                        Don't have an account?
+                        Don't have an account? Create one
                     </Link>
 
 

@@ -76,7 +76,7 @@ export const Signup = () => {
                     <div style={{ paddingBottom: "10px" }}></div>
 
                     <Link to='/login' className='text-md hover:underline hover:text-pink-400 inline-block'>
-                        Already have an account?
+                        Already have an account? Login
                     </Link>
 
 
