@@ -16,9 +16,9 @@ const useLogin=()=>{
                 body:JSON.stringify({username,password})
             })
             const data=await res.json()
-            console.log(data)
             if(data.error){
-                console.log(data)
+                toast.success(data.error)
+                // console.log(data.error)
                 throw new Error(data.error)
             }
             localStorage.setItem("chat-app",JSON.stringify(data))

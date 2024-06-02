@@ -18,7 +18,6 @@ export const SocketContextProvider=({children})=>{
                     userId:authUser._id
                 }
             })
-            console.log(authUser)
             setSocket(socket)
 
             socket.on("getOnlineUsers",(users)=>{

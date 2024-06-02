@@ -16,7 +16,8 @@ const Logout=()=>{
             })
             
         
-            localStorage.removeItem('chat-user')
+            localStorage.removeItem('chat-app')
+            
             setAuthUser(null)
             toast.success("Logged out successfully")
         } catch (error) {
