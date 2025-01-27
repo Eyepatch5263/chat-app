@@ -9,11 +9,11 @@ export const useSocketContext=()=>{
 export const SocketContextProvider=({children})=>{
     const [socket,setSocket]=useState(null)
     const [onlineUsers,setOnlineUsers]=useState("")
-    const {authUser,setAuthUser}=useAuthContext()
+    const {authUser}=useAuthContext()
     useEffect(()=>{
         if(authUser){
         
-            const socket=io({
+            const socket=io("http://localhost:8000",{
                 query:{
                     userId:authUser._id
                 }

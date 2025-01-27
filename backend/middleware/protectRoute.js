@@ -11,7 +11,6 @@ const protectRoute=async(req,res,next)=>{
             return res.status(401).json({error:"No token, authorization denied"})
         }
         const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY)
-        console.log(decoded)
         if(!decoded){
             return res.status(401).json({error:"Token is not valid"})
         }

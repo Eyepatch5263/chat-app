@@ -1,7 +1,6 @@
 const Conversation = require("../model/conversation")
 const Message = require("../model/message")
 const cookieParser=require('cookie-parser')
-const express=require("express")
 const { getReceiverSocketId,io } = require("../socket/socket")
 const sentMessage=async(req,res)=>{
     cookieParser()
@@ -32,9 +31,13 @@ const sentMessage=async(req,res)=>{
             await newMessage.save()
 
             const receiverSocketId=getReceiverSocketId(receiverId)
+
             if(receiverId){
                 //io.to(socketId).emit() used to send events to specific clients
                 io.to(receiverSocketId).emit('newMessage',newMessage)
+            }
+            else{
+                console.log('receiver id not found')
             }
             res.status(201).json(newMessage)
         

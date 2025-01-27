@@ -1,9 +1,7 @@
 const express=require('express')
-const path=require('path')
 const dotenv=require("dotenv")
 dotenv.config()
 const cookieParser=require('cookie-parser')
-const bodyParser=require('body-parser')
 const PORT=process.env.PORT
 const {connectToMongoDb}=require("./db/connectionToMongoDb")
 const authRoutes=require('./routes/routes')
@@ -24,11 +22,11 @@ app.use('/api/auth',authRoutes)
 app.use('/api/messages',messageRoutes)
 app.use('/api/users',userRoutes)
 
-app.use(express.static(path.join(__dirname,"/frontend","dist")))
+// app.use(express.static(path.join(__dirname,"/frontend","dist")))
 
-app.get("*",(req,res)=>{
-	res.sendFile(path.join(__dirname,"frontend","dist","index.html"));
-})
+// app.get("*",(req,res)=>{
+// 	res.sendFile(path.join(__dirname,"frontend","dist","index.html"));
+// })
 
 server.listen(PORT,()=>{
     console.log(`server is running on ${PORT} `)

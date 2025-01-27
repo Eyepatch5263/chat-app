@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuthContext } from "../../context/AuthContext";
@@ -39,6 +38,7 @@ const useSignup = () => {
         // setAuthUser(data)
 
     } catch (error) {
+        console.log(error)
         toast.error(error.message)
     }
     finally{
